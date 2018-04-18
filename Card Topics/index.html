@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta chraset="utf-8"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id='content'></div>
+        <script type="text/babel">
+            var technology = [
+                {
+                    name: 'C# and .Net Framework',
+                    description: 'Development of applications in C# and anilization of structure and use in platform .Net in projects.'
+                }, {
+                    name: 'React.JS and Redux',
+                    description: 'Introduction to development of web applications with using the React.js and Redux librarys.'
+                }, {
+                    name: 'ASP.NET Core',
+                    description: 'Overview and key features of ASP.NET Core. Training course and main benefits.'
+                }
+            ];
+            var CradTopic = React.createClass({
+                propTypes: {
+                    name: React.PropTypes.string.isRequired,
+                    description: React.PropTypes.string.isRequired,  
+                },
+                getInitalState: function() {
+                    return {
+                        name: this.props.name,
+                        description: this.props.description,
+                    };
+                },
+                render: function() {
+                    return (
+                        <div id='card'>
+                            <span id='card-title'>{this.props.name}</span>
+                            <p id='card-description'>{this.props.description}</p>
+                            <a id='card-link' href="#">GET STARTED...</a>
+                        </div>
+                    );
+                }                
+            });
+            var Topics = React.createClass({
+                render: function() {
+                    return (
+                        <div id='topics'>
+                            {
+                                technology.map(function(element) {
+                                    return <CradTopic name={element.name} description={element.description}/>
+                                })
+                            }
+                        </div>
+                    );
+                }
+            });
+            ReactDOM.render(
+                <Topics/>,
+                document.getElementById("content")
+            );
+        </script>
+    </body>
+</html>

@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+a {
+    text-decoration: none;
+}
+#topics {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 250px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+#card {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: 300px;
+    padding: 10px 2% 10px 2%;
+    background-color: #2272bc;
+    transition: background-color;
+}
+#card:hover {
+    background-color: #175483;
+}
+#card-title {
+    font-size: 18;
+    color: 	#00ff00;
+    margin: 0 20px;
+    height: 20px;
+}
+#card-description {
+    text-align: justify;
+    padding: 0 20px;
+    margin-top: 10px;
+}
+#card-link {
+    color: #ffb732;
+    margin-top: 10px;
+    transition: color;
+}
+#card-link:hover {
+    color: #996300;
+}
