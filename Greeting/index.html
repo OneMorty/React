@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta chraset="utf-8"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id='content'></div>
+        <script type='text/babel'>
+            var Component = React.createClass({
+                propTypes: {
+                    name: React.PropTypes.string.isRequired,
+                },
+                getInitialState: function() {
+                    return {
+                        name: this.props.name,
+                    };
+                },
+                handleNameChange: function(event) {
+                    var stateValue = null;
+                    if (event.target.value == "") {
+                        stateValue = "Stranger";
+                    } else {
+                        stateValue = event.target.value;
+                    }
+                    this.setState({
+                        name: stateValue,
+                    });
+                },
+                render: function() {
+                    return (
+                        <div id="question-name">
+                            <span>What is your name:</span>
+                            <input id="name-enter" type="text" placeholder="Enter your name..." onChange={this.handleNameChange}/>
+                            <span id="greeting">Hellow {this.state.name}!</span>
+                        </div>
+                    );
+                }
+            });
+            ReactDOM.render(
+                <Component name="Stranger"/>,
+                document.getElementById("content")
+            );
+        </script>
+    </body>
+</html>

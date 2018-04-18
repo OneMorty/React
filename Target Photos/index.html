@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+        <link href='styles/style.css' rel='stylesheet'/>
+    </head>
+    <body id="mainBody">
+        <script type="text/babel">
+            var photosPath = [
+                {
+                    path: "images/beach.jpg",
+                    idElement: "beach"
+                }, {
+                    path: "images/bridge.jpg",
+                    idElement: "bridge"
+                }, {
+                    path: "images/castle.jpg",
+                    idElement: "castle"
+                }, {
+                    path: "images/cat.jpg",
+                    idElement: "cat"
+                }, {
+                    path: "images/evening.jpg",
+                    idElement: "evening"
+                }, {
+                    path: "images/forest.jpg",
+                    idElement: "forest"
+                }, {
+                    path: "images/grass.jpg",
+                    idElement: "grass"
+                }, {
+                    path: "images/landscape.jpg",
+                    idElement: "langscape"
+                }, {
+                    path: "images/liaison.jpg",
+                    idElement: "liaison"
+                }, {
+                    path: "images/minions.jpg",
+                    idElement: "minions"
+                }, {
+                    path: "images/nature.jpg",
+                    idElement: "nature"
+                }, {
+                    path: "images/nice-cat.jpg",
+                    idElement: "nice-cat"
+                }, {
+                    path: "images/planet.jpg",
+                    idElement: "planet"
+                }, {
+                    path: "images/stones.jpg",
+                    idElement: "stones"
+                }, {
+                    path: "images/way.jpg",
+                    idElement: "way"
+                }
+            ];
+            var Header = React.createClass({
+                render: function() {
+                    return (
+                        <div className="header">
+                            <span className="targetName typeName">TARGET</span>
+                            <span className="photosGaleryName typeName">GALERY</span>
+                        </div>
+                    );
+                }
+            });
+            var TargetPhotos = React.createClass({
+                render: function() {
+                    return (
+                        <div className="target">
+                            <div className="targetElement"></div>
+                            <div className="targetElement"></div>
+                            <div className="targetElement"></div>
+                            <div className="targetElement"></div>
+                        </div>
+                    );
+                }
+            });
+            var GaleryElement = React.createClass({
+                propTypes: {
+                    path: React.PropTypes.string.isRequired,
+                    idElement: React.PropTypes.string.isRequired,
+                },
+                render: function() {
+                    return (
+                        <img className="photo" id={this.props.idElement}  draggable="true" src={this.props.path}/>
+                    );
+                }
+            });
+            var PhotosGalery = React.createClass({
+                render: function() {
+                    return (
+                        <div className="photosGalery">
+                            {
+                                photosPath.map(function(element) {
+                                    return <GaleryElement path={element.path} idElement={element.idElement}/>
+                                })
+                            }
+                        </div>
+                    );
+                }
+            });
+            ReactDOM.render(
+                <div>
+                    <Header />
+                    <TargetPhotos />
+                    <PhotosGalery />
+                </div>,
+                document.getElementById("mainBody")
+            );
+        </script>
+        <script>
+            window.onload = function() {
+                // Photos drag&drop
+                var source = [];
+                source = document.getElementsByClassName("photo");
+                for (var photos = 0; photos < source.length; photos++) {
+                       source[photos].addEventListener('dragstart', function(event) {
+                           this.style.border = "3px dashed #ad1167";
+                         event.dataTransfer.setData("Information", this.id);
+                     }, false);
+                    source[photos].addEventListener('dragend', function(event) {
+                           this.style.border = "";
+                    }, false);
+                }
+        
+                 // Target props
+                var sourceTarget = [];
+                sourceTarget = document.getElementsByClassName("targetElement");
+                for (var target = 0; target < sourceTarget.length; target++) {
+                        sourceTarget[target].addEventListener('dragenter', function(event) {
+                        this.style.border = "3px solid #0066CC";
+                    }, false);
+                    sourceTarget[target].addEventListener('dragleave', function(event) {
+                         this.style.border = "";
+                    }, false);
+                    sourceTarget[target].addEventListener('dragover', function(event) {
+                        if (event.preventDefault) event.preventDefault();
+                            return false;
+                    }, false);
+                    sourceTarget[target].addEventListener('drop', function(event) {
+                        event.stopPropagation();
+                        this.style.border = "";
+                        var id = event.dataTransfer.getData("Information");
+                        var element = document.getElementById(id);
+                        this.appendChild(element);
+                        element.style.margin = "0";
+                        element.style.width = "100%";
+                        element.style.height = "100%";
+                        return false;
+                    }, false);
+                }
+            }
+        </script>
+    </body>
+</html>
